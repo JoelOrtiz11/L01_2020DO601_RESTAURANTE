@@ -40,12 +40,12 @@ namespace L01_2020DO601.Controllers
         /// <para name="id"></para>
         /// <returns></returns>
         [HttpGet]
-        [Route("Find/{filtro}")]
+        [Route("Buscar/{Palabra}")]
         public IActionResult FindByPalabraDireccion(string filtro)
         {
             clientes? PalabraDireccion = (from e in _restauranteContexto.clientes
-                                    where e.direccion.Contains(filtro)
-                                    select e).FirstOrDefault();
+                                          where e.direccion.Contains(filtro)
+                                          select e).FirstOrDefault();
 
             if (PalabraDireccion == null)
             {
@@ -54,18 +54,19 @@ namespace L01_2020DO601.Controllers
 
             return Ok(PalabraDireccion);
         }
+
         /// Metodo para crear nuevo registro
         [HttpPost]
         [Route("Add")]
-        public IActionResult GuardarCliente([FromBody] clientes cliente) 
+        public IActionResult GuardarCliente([FromBody] clientes cliente)
         {
-            try 
+            try
             {
                 _restauranteContexto.clientes.Add(cliente);
                 _restauranteContexto.SaveChanges();
                 return Ok(cliente);
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
@@ -74,13 +75,13 @@ namespace L01_2020DO601.Controllers
         /// Metodo para modificar un registro
         [HttpPut]
         [Route("actualizar/{id}")]
-        public IActionResult ActualizarCliente(int id, [FromBody] clientes clienteModificar) 
+        public IActionResult ActualizarCliente(int id, [FromBody] clientes clienteModificar)
         {
             clientes? clienteActual = (from e in _restauranteContexto.clientes
                                        where e.clienteId == id
                                        select e).FirstOrDefault();
 
-            if (clienteActual == null) 
+            if (clienteActual == null)
             {
                 return NotFound();
             }
@@ -92,20 +93,17 @@ namespace L01_2020DO601.Controllers
             _restauranteContexto.SaveChanges();
 
             return Ok(clienteActual);
-
-
         }
-
         /// Metodo para eliminar un registro
         [HttpDelete]
         [Route("eliminar/{id}")]
-        public IActionResult EliminarCliente(int id) 
+        public IActionResult EliminarCliente(int id)
         {
             clientes? cliente = (from e in _restauranteContexto.clientes
                                  where e.clienteId == id
                                  select e).FirstOrDefault();
 
-            if (cliente == null) 
+            if (cliente == null)
             {
                 return NotFound();
             }
@@ -116,6 +114,5 @@ namespace L01_2020DO601.Controllers
 
             return Ok(cliente);
         }
-
     }
 }

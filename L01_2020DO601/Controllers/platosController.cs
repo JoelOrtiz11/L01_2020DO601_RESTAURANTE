@@ -40,14 +40,14 @@ namespace L01_2020DO601.Controllers
         /// <para name="id"></para>
         /// <returns></returns>
         [HttpGet]
-        [Route("Find/{filtro}")]
-        public IActionResult FindByPalabraPlato(string filtro) 
+        [Route("Buscar/{PalabraPlato}")]
+        public IActionResult FindByPalabraPlato(string filtro)
         {
             platos? PalabraPlato = (from e in _restauranteContexto.platos
-                                   where e.nombrePlato.Contains(filtro)
-                                   select e).FirstOrDefault();
+                                    where e.nombrePlato.Contains(filtro)
+                                    select e).FirstOrDefault();
 
-            if (PalabraPlato == null) 
+            if (PalabraPlato == null)
             {
                 return NotFound();
             }
@@ -77,8 +77,8 @@ namespace L01_2020DO601.Controllers
         public IActionResult ActualizarPlato(int id, [FromBody] platos platoModificar)
         {
             platos? platoActual = (from e in _restauranteContexto.platos
-                                       where e.platoId == id
-                                       select e).FirstOrDefault();
+                                   where e.platoId == id
+                                   select e).FirstOrDefault();
 
             if (platoActual == null)
             {
@@ -102,8 +102,8 @@ namespace L01_2020DO601.Controllers
         public IActionResult EliminarPlato(int id)
         {
             platos? plato = (from e in _restauranteContexto.platos
-                                 where e.platoId == id
-                                 select e).FirstOrDefault();
+                             where e.platoId == id
+                             select e).FirstOrDefault();
 
             if (plato == null)
             {

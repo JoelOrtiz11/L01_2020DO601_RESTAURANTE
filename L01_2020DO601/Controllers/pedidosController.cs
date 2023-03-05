@@ -33,13 +33,12 @@ namespace L01_2020DO601.Controllers
             }
             return Ok(listadoPedido);
         }
-
         /// <summary>
         /// EndPoint que retorna los registros de la tabla pedidos por medio de clienteId
         /// </summary>
         /// <para name="id"></para>
         [HttpGet]
-        [Route("Find/{filtro}")]
+        [Route("Buscar/{ClienteId}")]
 
         public IActionResult FindByClienteId(int filtro)
         {
@@ -47,26 +46,25 @@ namespace L01_2020DO601.Controllers
                                   where e.clienteId == filtro
                                   select e).FirstOrDefault();
 
-            if (ClienteId == null) 
+            if (ClienteId == null)
             {
                 return NotFound();
             }
 
             return Ok(ClienteId);
         }
-
         /// <summary>
         /// EndPoint que retorna los registros de la tabla pedidos por medio de motoristaId
         /// </summary>
         /// <para name="id"></para>
         [HttpGet]
-        [Route("Find/{filtro}")]
+        [Route("Buscar/{MotoristaId}")]
 
         public IActionResult FindByMotoristaId(int filtro)
         {
             pedidos? MotoristaId = (from e in _restauranteContexto.pedidos
-                                  where e.motoristaId == filtro
-                                  select e).FirstOrDefault();
+                                    where e.motoristaId == filtro
+                                    select e).FirstOrDefault();
 
             if (MotoristaId == null)
             {
@@ -75,7 +73,6 @@ namespace L01_2020DO601.Controllers
 
             return Ok(MotoristaId);
         }
-
         /// Metodo para crear nuevo registro
         [HttpPost]
         [Route("Add")]
@@ -99,8 +96,8 @@ namespace L01_2020DO601.Controllers
         public IActionResult ActualizarPedido(int id, [FromBody] pedidos pedidoModificar)
         {
             pedidos? pedidoActual = (from e in _restauranteContexto.pedidos
-                                       where e.pedidoId == id
-                                       select e).FirstOrDefault();
+                                     where e.pedidoId == id
+                                     select e).FirstOrDefault();
 
             if (pedidoActual == null)
             {
@@ -127,8 +124,8 @@ namespace L01_2020DO601.Controllers
         public IActionResult EliminarPedido(int id)
         {
             pedidos? pedido = (from e in _restauranteContexto.pedidos
-                                 where e.pedidoId == id
-                                 select e).FirstOrDefault();
+                               where e.pedidoId == id
+                               select e).FirstOrDefault();
 
             if (pedido == null)
             {

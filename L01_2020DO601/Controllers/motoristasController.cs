@@ -33,7 +33,6 @@ namespace L01_2020DO601.Controllers
             }
             return Ok(listadoMotorista);
         }
-
         /// Metodo para crear nuevo registro
         [HttpPost]
         [Route("Add")]
@@ -57,8 +56,8 @@ namespace L01_2020DO601.Controllers
         public IActionResult ActualizarMotorista(int id, [FromBody] motoristas motoristaModificar)
         {
             motoristas? motoristaActual = (from e in _restauranteContexto.motoristas
-                                       where e.motoristaId == id
-                                       select e).FirstOrDefault();
+                                           where e.motoristaId == id
+                                           select e).FirstOrDefault();
 
             if (motoristaActual == null)
             {
@@ -81,8 +80,8 @@ namespace L01_2020DO601.Controllers
         public IActionResult EliminarMotorista(int id)
         {
             motoristas? motorista = (from e in _restauranteContexto.motoristas
-                                 where e.motoristaId == id
-                                 select e).FirstOrDefault();
+                                     where e.motoristaId == id
+                                     select e).FirstOrDefault();
 
             if (motorista == null)
             {
@@ -95,5 +94,6 @@ namespace L01_2020DO601.Controllers
 
             return Ok(motorista);
         }
+
     }
 }
